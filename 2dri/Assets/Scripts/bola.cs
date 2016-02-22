@@ -12,20 +12,25 @@ public class bola : MonoBehaviour {
 	private Color coli,coli2;
 	public Text puntp1,puntp2;
 	private int punts1, punts2;
+    private GameObject p1, p2;
 	// Use this for initialization
 	void Start () {
 		punts1 = punts2 = 0;
 		g = GetComponent <CircleCollider2D> ();
-		r = GetComponent <Rigidbody2D> ();
+		r = GetComponent <Rigidbody2D>();
 		edc = ed.GetComponent <BoxCollider2D> ();
 		esc = es.GetComponent <BoxCollider2D> ();
 		toc = false;
 		fin = false;
 		turn = false;
-		coli = new Color (0.407f, 0.749f, 0.509f,1f);
-		coli2 = new Color (0.553f,0.376f,0.682f,1f);
+         p1 = GameObject.FindGameObjectWithTag("player1");
+        p2 = GameObject.FindGameObjectWithTag("player2");
+        coli = p1.GetComponent<SpriteRenderer>().color;
+		coli2 = p2.GetComponent<SpriteRenderer>().color;
 		puntp1.text = "P1: " + punts1;
 		puntp2.text = "P2: " + punts2;
+      
+
 		//turn false= tira player1
 	}
 	
@@ -36,7 +41,7 @@ public class bola : MonoBehaviour {
 			if (!turn) {
 				color.color = coli;
 			} else {
-				color.color = coli2;
+                color.color = coli2;
 			}
 		
 			if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) {

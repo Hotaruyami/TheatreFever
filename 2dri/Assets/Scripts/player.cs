@@ -2,7 +2,7 @@
 using System.Collections;
 public class player : MonoBehaviour {
 	private float p1h,p1v, modul, x,y; private  Vector2 mov;
-
+    private string[] upgrades; 
 	// Use this for ingetitialization
 	void Start () {
 		p1h = p1v = 0; mov = new Vector2 (0, 0);
