@@ -20,18 +20,15 @@ public class bola : MonoBehaviour {
 		r = GetComponent <Rigidbody2D>();
 		edc = ed.GetComponent <BoxCollider2D> ();
 		esc = es.GetComponent <BoxCollider2D> ();
-		toc = false;
-		fin = false;
-		turn = false;
-         p1 = GameObject.FindGameObjectWithTag("player1");
+		toc = fin = turn = false;
+		//turn false= tira player1
+        p1 = GameObject.FindGameObjectWithTag("player1");
         p2 = GameObject.FindGameObjectWithTag("player2");
         coli = p1.GetComponent<SpriteRenderer>().color;
 		coli2 = p2.GetComponent<SpriteRenderer>().color;
 		puntp1.text = "P1: " + punts1;
 		puntp2.text = "P2: " + punts2;
-      
-
-		//turn false= tira player1
+  
 	}
 	
 	// Update is called once per frame
@@ -45,7 +42,7 @@ public class bola : MonoBehaviour {
 			}
 		
 			if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) {
-				if (punts1 < 10 && punts2 < 10) {
+				if (punts1 < 11 && punts2 < 11) {
 					r.velocity = new Vector2 (-7 * Mathf.Sign (r.velocity.x), r.velocity.y);
 					if (g.IsTouching (esc)) {
 						if (turn) {
