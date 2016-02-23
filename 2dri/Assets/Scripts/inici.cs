@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine.SceneManagement;
+
 public class inici : MonoBehaviour {
     private float p1v, p1h, p2v, p2h;
     public SpriteRenderer p1, p2;
     public GameObject pg1, pg2;
-    private Color32[] cols;
+	private Color32[] cols;
     private int i1, i2;
 	// Use this for initialization
 	void Start () {
@@ -38,7 +39,7 @@ public class inici : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
           	DontDestroyOnLoad(pg1);
             DontDestroyOnLoad(pg2);
-            SceneManager.LoadScene("Untitled"); 
+            SceneManager.LoadScene("PelotaVasca"); 
          }
 	}
 }
