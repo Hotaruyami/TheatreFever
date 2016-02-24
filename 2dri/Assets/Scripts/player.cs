@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 public class player : MonoBehaviour {
-	private float p1h,p1v,modul, x,y; 
+	private float p1h,p1v,modul, x,y;
+    static List<string> upgrades;
+    static Dictionary<string,string> armes;
 	private  Vector2 mov;
 	// Use this for ingetitialization
 	void Start () {
 		p1h = p1v = 0; mov = new Vector2 (0, 0);
+       armes=new Dictionary<string, string>();
+       armes["espasa"] = "espasa foc negre";
 	}
 	
 	// Update is called once per frame
@@ -27,5 +33,8 @@ public class player : MonoBehaviour {
 		}
 
 	}
+    public string tornaupgrades(string a){
+        return armes[a];
+}
 
 }

@@ -5,6 +5,7 @@ using System.Collections;
 public class bombolla : MonoBehaviour {
 	private GameObject p1, p2, b1, b2, bc1, bc2;
 	static bool uno,dos;
+  
 	public cargar Cn;
     
    
@@ -27,6 +28,7 @@ public class bombolla : MonoBehaviour {
             {
                 bc1.SetActive(true);
                 uno = true;
+            
               
             }
          

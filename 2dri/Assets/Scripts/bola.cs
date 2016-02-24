@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class bola : MonoBehaviour {
-
+    private Collider2D pelotavasca;
 	private Collider2D g, edc, esc;
 	private Rigidbody2D r;
 	private GameObject p1, p2;
@@ -17,19 +17,25 @@ public class bola : MonoBehaviour {
 	public SpriteRenderer color;
     public cargar Anarsesala;
     private bool once;
-
+    private bool afegir;
+  public player loco;
+    //
+    private Collider2D p1box;
     private float distanciapercanviar;
 	// Use this for initialization
 	void Start () {
-        once = false;
+        once = false; afegir = false;
 		pun1 = pun2 = 0;
 		g = GetComponent <CircleCollider2D> ();
 		r = GetComponent <Rigidbody2D>();
 		edc = ed.GetComponent <BoxCollider2D> ();
+      
 		esc = es.GetComponent <BoxCollider2D> ();
 		fin = turn = false; //turn false = tira player1
         p1 = GameObject.FindGameObjectWithTag("player1");
         p2 = GameObject.FindGameObjectWithTag("player2");
+        //
+        p1box = p1.GetComponent<CircleCollider2D>();
         fonsi = GameObject.FindGameObjectWithTag("fonstot");
         colorp1 = p1.GetComponent<SpriteRenderer>().color;
 		colorp2 = p2.GetComponent<SpriteRenderer>().color;
@@ -39,11 +45,25 @@ public class bola : MonoBehaviour {
 		puntp2 = GameObject.Find("pplayer2").GetComponent<Text>();
 		puntp1.text = "P1: " + pun1;
 		puntp2.text = "P2: " + pun2;
+       loco = p1.GetComponent<player>();
+       pelotavasca = GameObject.FindGameObjectWithTag("sala1m").GetComponent<BoxCollider2D>();
+
+
 	
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        if (p1box.IsTouching(pelotavasca))
+        {
+            if (!afegir)
+            {
+                afegir = true;
+                print(loco.tornaupgrades("espasa"));
+                
+
+            }
+        }
 		if (!fin) {
 			if (!turn) {// turn player 1
 				color.color = colorp1;
@@ -86,10 +106,9 @@ public class bola : MonoBehaviour {
 		}
        
         if (bubledins1.dins1() && bubledins2.dins2()) {
-            print(Anarsesala.tamanySales()[0]);
-            print(Anarsesala.tamanySales()[1]);
+            
 
-           
+
             if (!once)
             {
                 distanciapercanviar = Anarsesala.Next() + 2;
