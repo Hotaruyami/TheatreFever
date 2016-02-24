@@ -10,8 +10,16 @@ public class player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(gameObject.CompareTag("player1")){p1h = Input.GetAxis ("Horizontal"); p1v = Input.GetAxis ("Vertical");}
-		if(gameObject.CompareTag("player2")){p1h =Input.GetAxis ("player2"); p1v = Input.GetAxis ("player2v");}
+		if(gameObject.CompareTag("player1"))
+		{
+			p1h = Input.GetAxis ("Horizontal"); 
+			p1v = Input.GetAxis ("Vertical");
+		}
+		if(gameObject.CompareTag("player2"))
+		{
+			p1h = Input.GetAxis ("player2"); 
+			p1v = Input.GetAxis ("player2v");
+		}
 		mov[0] = p1h; mov[1] = p1v;
 
 		if(Mathf.Sqrt(p1h*p1h+p1v*p1v)>0){

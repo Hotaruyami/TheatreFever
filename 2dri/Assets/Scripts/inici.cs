@@ -7,6 +7,7 @@ public class inici : MonoBehaviour {
     private float p1v, p1h, p2v, p2h;
     public SpriteRenderer p1, p2;
     public GameObject pg1, pg2;
+	private Vector3 posSala;
 	private Color32[] cols;
     private int i1, i2;
 	// Use this for initialization
@@ -17,8 +18,8 @@ public class inici : MonoBehaviour {
         cols[2] = new Color32(0, 0, 0, 255);
         cols[3] = new Color32(20, 107, 193,255);
         cols[4] = new Color32(249, 86, 74, 255);
-        i1 = 0;
-        i2 = 1;
+        i1 = 0;i2 = 1;
+	
     }
 	
 	// Update is called once per frame
@@ -39,7 +40,7 @@ public class inici : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
           	DontDestroyOnLoad(pg1);
             DontDestroyOnLoad(pg2);
-            SceneManager.LoadScene("PelotaVasca"); 
+            SceneManager.LoadScene("Games"); 
          }
 	}
 }

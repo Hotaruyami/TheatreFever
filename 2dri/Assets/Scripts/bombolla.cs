@@ -3,11 +3,14 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class bombolla : MonoBehaviour {
-	private GameObject p1, p2, b1, b2,bc1,bc2;
+	private GameObject p1, p2, b1, b2, bc1, bc2;
+	private bool uno,dos;
+	public cargar Cn;
 
 
 	// Use this for initialization
 	void Start () {
+		uno = dos = false;
 		p1 = GameObject.FindGameObjectWithTag("player1");
 		p2 = GameObject.FindGameObjectWithTag("player2");
 		b1 = GameObject.FindGameObjectWithTag("b1");
@@ -20,13 +23,16 @@ public class bombolla : MonoBehaviour {
 	void FixedUpdate () { 
 		if (p1.transform.position.x >= b1.transform.position.x - 1 && p1.transform.position.x <= b1.transform.position.x + 1 && p1.transform.position.y >= b1.transform.position.y - 1 && p1.transform.position.y <= b1.transform.position.y + 1) {
 			bc1.SetActive (true);
-
-
+			uno = true;
 		} 
 		if (p2.transform.position.x >= b2.transform.position.x - 1 && p2.transform.position.x <= b2.transform.position.x + 1 && p2.transform.position.y >= b2.transform.position.y - 1 && p2.transform.position.y <= b2.transform.position.y + 1) {
 			bc2.SetActive (true);
+			dos = true;
 
 		} 
+		if (uno && dos) {
+			Cn.Next();
+		}
 			
 	}
 }
