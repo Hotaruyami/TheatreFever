@@ -7,7 +7,7 @@ public class cargar : MonoBehaviour {
 
 	public GameObject[] salas;
     static List<float> tamanys;
-	private int ran,norep;
+    private int ran;
 	private float tam;
 	private Vector3 posSala;
     private List<GameObject> sales;
@@ -16,7 +16,7 @@ public class cargar : MonoBehaviour {
 
 	void Start () {
 		tam = 0;
-		norep = salas.Length + 1;
+		
 		//Pasar a la funció el número de minijocs a jugar?
         index = 0;
         tamanys = new List<float>();

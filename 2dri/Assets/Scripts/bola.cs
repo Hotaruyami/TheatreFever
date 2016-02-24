@@ -17,6 +17,8 @@ public class bola : MonoBehaviour {
 	public SpriteRenderer color;
     public cargar Anarsesala;
     private bool once;
+
+    private float distanciapercanviar;
 	// Use this for initialization
 	void Start () {
         once = false;
@@ -86,11 +88,20 @@ public class bola : MonoBehaviour {
         if (bubledins1.dins1() && bubledins2.dins2()) {
             print(Anarsesala.tamanySales()[0]);
             print(Anarsesala.tamanySales()[1]);
-          
+
+           
             if (!once)
             {
-                fonsi.transform.position = new Vector3(fonsi.transform.position.x, fonsi.transform.position.y - Anarsesala.Next()-2, fonsi.transform.position.z);
+                distanciapercanviar = Anarsesala.Next() + 2;
                 once = true;
+            }
+            else
+            {
+                if (distanciapercanviar > 0)
+                {
+                    fonsi.transform.position = new Vector3(fonsi.transform.position.x, fonsi.transform.position.y - 0.1f, fonsi.transform.position.z);
+                    distanciapercanviar -= 0.1F; ;
+                }
             }
           
             
