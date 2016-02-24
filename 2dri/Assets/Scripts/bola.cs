@@ -12,13 +12,14 @@ public class bola : MonoBehaviour {
 	private Vector3 B1,B2;
 	private int pun1,pun2;
 	private Text puntp1, puntp2;
-
-	public GameObject es, ed, bubbleW, bubbleL;
+    public bombolla bubledins1, bubledins2;
+	public GameObject es, ed, bubbleW, bubbleL,fonsi;
 	public SpriteRenderer color;
-
-    
+    public cargar Anarsesala;
+    private bool once;
 	// Use this for initialization
 	void Start () {
+        once = false;
 		pun1 = pun2 = 0;
 		g = GetComponent <CircleCollider2D> ();
 		r = GetComponent <Rigidbody2D>();
@@ -27,6 +28,7 @@ public class bola : MonoBehaviour {
 		fin = turn = false; //turn false = tira player1
         p1 = GameObject.FindGameObjectWithTag("player1");
         p2 = GameObject.FindGameObjectWithTag("player2");
+        fonsi = GameObject.FindGameObjectWithTag("fonstot");
         colorp1 = p1.GetComponent<SpriteRenderer>().color;
 		colorp2 = p2.GetComponent<SpriteRenderer>().color;
 		bubbleW.GetComponent<SpriteRenderer>().color = colorp1;
@@ -79,7 +81,21 @@ public class bola : MonoBehaviour {
 			if (g.IsTouchingLayers (LayerMask.GetMask ("murY"))) {
 				r.velocity = new Vector2 ((r.velocity.x), -7 * Mathf.Sign (r.velocity.y));
 			} //FIN MUR Y
-		} //FIN !FIN
+		}
+       
+        if (bubledins1.dins1() && bubledins2.dins2()) {
+            print(Anarsesala.tamanySales()[0]);
+            print(Anarsesala.tamanySales()[1]);
+          
+            if (!once)
+            {
+                fonsi.transform.position = new Vector3(fonsi.transform.position.x, fonsi.transform.position.y - Anarsesala.Next()-2, fonsi.transform.position.z);
+                once = true;
+            }
+          
+            
+            
+        }//FIN !FIN
 	}
 	void final(){
 		fin = true;
