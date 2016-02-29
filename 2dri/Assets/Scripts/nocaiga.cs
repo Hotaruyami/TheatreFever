@@ -6,7 +6,7 @@ public class nocaiga : MonoBehaviour {
 	public bool e;
 	public GameObject p1,p2;
 
-	private GameObject bola;
+	private GameObject rombo;
 	private Vector3 posBull;
 
 
@@ -20,14 +20,16 @@ public class nocaiga : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
 			if (!e) {
-				bola = Resources.Load ("bola", typeof(GameObject)) as GameObject;	
+				rombo = Resources.Load ("rombo", typeof(GameObject)) as GameObject;	
 				posBull = new Vector3 (0, 4, 18);
-				Instantiate (bola, posBull, Quaternion.identity);
-				bola = GameObject.FindGameObjectWithTag("bola");
+				Instantiate (rombo, posBull, Quaternion.identity);
+				rombo = GameObject.FindGameObjectWithTag ("rombo");
 				e = true;
+			} else {
+				
 			}
 		}
-		//bola.transform.position = new Vector3 (p1.transform.position.x-0.5f, p1.transform.position.y, p1.transform.position.z);
+
 //		if (Input.GetKeyDown (KeyCode.Keypad0))
 //		{
 //

@@ -4,13 +4,14 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class inici : MonoBehaviour {
-    private float p1v, p1h, p2v, p2h;
     public SpriteRenderer p1, p2;
     public GameObject pg1, pg2;
+
+	private float p1v, p1h, p2v, p2h;
 	private Vector3 posSala;
 	private Color32[] cols;
     private int i1, i2;
-	// Use this for initialization
+
 	void Start () {
         cols = new Color32[5];
 		cols[0]= new Color32(141,96,174,255);
@@ -19,21 +20,20 @@ public class inici : MonoBehaviour {
         cols[3] = new Color32(20, 107, 193,255);
         cols[4] = new Color32(249, 86, 74, 255);
         i1 = 0;i2 = 1;
-	
     }
-	
-	// Update is called once per frame
+
 	void Update () {
         if(Input.GetKeyDown(KeyCode.LeftShift)){
-            if(i2 == 4) { i2=0; }
+            if(i2 == 4){ i2=0; }
             else{ i2++; }
 		}
 
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
-            if (i1 == 4) { i1 = 0; }
+            if (i1 == 4){ i1 = 0; }
             else { i1++; }
         }
+
         p1.color = cols[i1];
         p2.color = cols[i2];
         
