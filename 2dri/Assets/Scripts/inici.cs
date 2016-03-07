@@ -24,20 +24,21 @@ public class inici : MonoBehaviour {
 
 	void Update () {
         if(Input.GetKeyDown(KeyCode.LeftShift)){
-            if(i2 == 4){ i2=0; }
+            if(i2 == 4){ i2 = 0; } //canvia colors player esquerra
             else{ i2++; }
 		}
 
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            if (i1 == 4){ i1 = 0; }
+            if (i1 == 4){ i1 = 0; } //canvia colors player dreta
             else { i1++; }
         }
 
-        p1.color = cols[i1];
+        p1.color = cols[i1]; // Asigna els colors als players
         p2.color = cols[i2];
         
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) && i1 != i2 ) {  //Els players han de tenir colors diferents
+			//Carrega l'escena on estan els jocs, sense destruir els players
           	DontDestroyOnLoad(pg1);
             DontDestroyOnLoad(pg2);
             SceneManager.LoadScene("Games"); 

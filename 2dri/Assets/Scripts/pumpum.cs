@@ -2,25 +2,36 @@
 using System.Collections;
 
 public class pumpum : MonoBehaviour {
-	public GameObject p1,p2;
-	private GameObject rombo;
-	private Vector3 posBull;
+	public cargar Anarsesala;
 
-	// Use this for initialization
+	private GameObject p1,p2;
+	private Collider2D pumpu;
+	private CircleCollider2D p1box;
+	private player loco,loco2;
+	private bool afegir;
+
 	void Start () {
-	
+		afegir = false;
+		p1 = GameObject.FindGameObjectWithTag("player1");
+		p2 = GameObject.FindGameObjectWithTag("player2");
+		loco = p1.GetComponent<player>(); //Script p1
+		loco2 = p2.GetComponent<player>();
+		p1box = p1.GetComponent<CircleCollider2D>(); //CC del player
+		pumpu = GetComponent<BoxCollider2D>(); //Collider de la sala
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		if (Input.GetKeyDown (KeyCode.LeftShift))
-		{
-				rombo = Resources.Load ("rombo", typeof(GameObject)) as GameObject;	
-				posBull = new Vector3 (p1.transform.position.x,p1.transform.position.y,p1.transform.position.z);
-				Instantiate (rombo, posBull, Quaternion.identity);
-				rombo = GameObject.FindGameObjectWithTag ("rombo");
-				
+
+	void FixedUpdate () { 
+		if (!afegir) 
+		{ 
+			if (p1box.IsTouching(pumpu))
+			{	
+				//Activa arma  
+				loco.activeWeap ("arc");
+				loco2.activeWeap ("arc");
+				afegir = true;
 			} 
 		}
-	
+
+
 	}
+}

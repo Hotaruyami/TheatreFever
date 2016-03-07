@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class player : MonoBehaviour {
     static List<string> upgrades;
     static Dictionary<string,string> armes;
-	private GameObject pal,aa;
+
+	private GameObject arma,aa;
 	private  Vector2 mov;
-	private float p1h,p1v,modul, x,y;
+	private float p1h,p1v;
 
 	void Start () {
 		p1h = p1v = 0; 
 		mov = new Vector2 (0, 0);
-        armes=new Dictionary<string, string>();
-        armes["espasa"] = "espasa";
+        armes = new Dictionary<string, string>();
+        armes ["espasa"] = "espasa";
 		armes ["arc"] = "arc";
 		armes ["pal"] = "pal";
 	}
@@ -38,23 +40,34 @@ public class player : MonoBehaviour {
 		if(Mathf.Sqrt(p1h*p1h+p1v*p1v)>0){
 			transform.position = new Vector3 (transform.position.x + p1h/Mathf.Sqrt(p1h*p1h+p1v*p1v)*0.2f, transform.position.y + p1v/Mathf.Sqrt(p1h*p1h+p1v*p1v) * 0.2F,17);	
 		}
-
 	}
     
-	public string tornaupgrades(string a){
-        return armes[a];
+	public string tornaupgrades(string arma){ //REtorna el tipus d'"arma"
+        return armes[arma];
 	}
 
-	public void activeWeap(string nom){
-		pal = Resources.Load (nom, typeof(GameObject)) as GameObject;	
-		aa = (Instantiate (pal, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject);
+	public void activeWeap(string nom){ //Activa l'arma nom
+		arma = Resources.Load (nom, typeof(GameObject)) as GameObject;	
+		aa = (Instantiate (arma, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject);
 		aa.transform.parent = transform;
-		aa.GetComponent<HingeJoint2D> ().connectedBody = gameObject.GetComponent<Rigidbody2D>();
-		aa.transform.localScale = new Vector3(0.2f,0.025f,0);
+		if (nom == "pal") {
+			aa.GetComponent<HingeJoint2D> ().connectedBody = gameObject.GetComponent<Rigidbody2D> ();
+			aa.transform.localScale = new Vector3 (0.2f, 0.025f, 0);	
+		} 
+		else if (nom == "arc") {
+			aa.transform.localScale = new Vector3 (0.2f,0.1f,0);
+			aa.transform.localPosition = new Vector3 (0,0.07f,0);
+		}
+		else if (nom == "espasa") {
+		}
+	}
+
+	public void desactivarWeap(string nom){
+		Destroy(transform.FindChild (nom + "(Clone)").gameObject);
 	}
 
 	public void Obrir(bool obre){
-		//Aciva i desactiva players
+		//Activa i desactiva players
 		if(obre)
 		{
 			gameObject.SetActive (true);
@@ -62,5 +75,23 @@ public class player : MonoBehaviour {
 		else{
 			gameObject.SetActive (false);
 		}
+	}
+
+	public void Punts(int pun1, int pun2, bool active){
+		if(active){
+			GameObject.Find("pplayer1").GetComponent<Text>().text = "P1: " + pun1;
+			GameObject.Find("pplayer2").GetComponent<Text>().text = "P2: " + pun2;	
+		}
+		else{ //Reset puntuació
+			GameObject.Find("pplayer1").GetComponent<Text>().text = "";
+			GameObject.Find("pplayer2").GetComponent<Text>().text = "";
+		}
+
+	}
+
+	public void PuntuacioGeneral(/* Passar el player que hagi guanyat */){ 
+		//PODRIEM FER UNA GENERAL PER SABER QUANTS MINIJOCS HA GUANYAT CADA
+		//Que s'activi al acabar una sala dient quin player ha guanyat simplement
+		
 	}
 }

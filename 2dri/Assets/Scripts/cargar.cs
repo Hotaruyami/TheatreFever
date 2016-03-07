@@ -7,12 +7,12 @@ public class cargar : MonoBehaviour {
 
 	public GameObject[] salas;
     
-	private BoxCollider2D pelotavasca;
     private int ran;
 	private float tam,distanciapercanviar;
 	private Vector3 posSala;
     private List<GameObject> sales;
 
+	static Collider2D sala;
  	static player pt1,pt2;
 	static bombolla bm1,bm2;
     static GameObject p1,p2,b1,b2;
@@ -23,13 +23,14 @@ public class cargar : MonoBehaviour {
 	void Start () {
 		p1 = GameObject.FindGameObjectWithTag ("player1");
 		p2 = GameObject.FindGameObjectWithTag ("player2");
-		pt1 = p1.GetComponent<player>();
+		pt1 = p1.GetComponent<player>(); //Script player1
 		pt2 = p2.GetComponent<player>();
 		due = tre = false;
 		tam = index = 0;
         tamanys = new List<float>();
         sales = salas.ToList<GameObject>();
-		Jueguen ();	//Pasar a la funció el número de minijocs a jugar?
+		Jueguen ();	//Executa el creador de sales
+		//Pasar a la funció el número de minijocs a jugar?
 	}
 
 	void FixedUpdate () {
@@ -42,43 +43,47 @@ public class cargar : MonoBehaviour {
 			distanciapercanviar -= 0.1F;
 		}
 		else if (distanciapercanviar <= 0 && due){ //Destrueix la sala
-			b1 = GameObject.FindGameObjectWithTag("b1");
+			b1 = GameObject.FindGameObjectWithTag("b1"); //Bombolles
 			b2 = GameObject.FindGameObjectWithTag("b2");
-			bm1 = b1.GetComponent<bombolla> ();
+			bm1 = b1.GetComponent<bombolla> (); //Script bombolla 1
 			bm2 = b2.GetComponent<bombolla> ();
-			pelotavasca = GameObject.FindGameObjectWithTag ("sala1m").GetComponent<BoxCollider2D>();
 			due = false;
-			Destroy (pelotavasca.gameObject);
-			pt1.Obrir (true);
+			DestroySala (); //Destruim sala anterior
+			pt1.Obrir (true); //Fa apareixer el player 1
 			pt2.Obrir (true);
-			bm1.Walls (false,1);
+			bm1.Walls (false,1); //Obre les portes de la bombolla
 			bm2.Walls (false,2);
 		}
 	}
 
 	void Jueguen(){
-		for(int x = 0; x < 2; ++x){
-			ran = Random.Range (0, sales.Count);
-            tamanys.Add(sales[ran].transform.localScale.y);
-			posSala = new Vector3 (transform.position.x,tam, 18);
-            (Instantiate(sales[ran], posSala, Quaternion.identity) as GameObject).transform.parent = transform;
+		for(int x = 0; x < 2; ++x){ // fa un for i carrega el número de sales (de moment son 2)
+			ran = Random.Range (0, sales.Count); //sala aleatoria
+            tamanys.Add(sales[ran].transform.localScale.y); //Afegeix a tamanys el tamany de la sala actual
+			posSala = new Vector3 (transform.position.x,tam, 18); //Posisció on es col·locarà
+            (Instantiate(sales[ran], posSala, Quaternion.identity) as GameObject).transform.parent = transform; //Instancia i la fa child de fons
 			tam += sales[ran].transform.localScale.y+2;
             sales.RemoveAt(ran);
-		
 		}
 	}
 
-	public float Next(){
-      index+=1;
-      return tamanys[index - 1];
-        
+	public float Next(){ //Calcula el tamany de la sala i el retorna
+      index += 1;
+      return tamanys[index - 1];     
 	}
 
-    public List<float> tamanySales() { return tamanys; }
+    public List<float> tamanySales() { return tamanys; } 
 
 	public void canviSala(){
 		due = tre = true;
-		pt1.Obrir (false);
+		pt1.Obrir (false); //esactiva els players while bubble
 		pt2.Obrir (false);
+	}
+	public void AsignSalaDelete(Collider2D delete){
+		sala = delete; //Fem arribar aquí, el collider de la sala on estem, per fer delete
+	}
+
+	void DestroySala(){
+		Destroy (sala.gameObject); //Destruim sala anterior
 	}
 }

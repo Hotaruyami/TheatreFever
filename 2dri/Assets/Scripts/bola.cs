@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class bola : MonoBehaviour {
 	private Collider2D g, edc, esc, pelotavasca;
@@ -10,13 +9,12 @@ public class bola : MonoBehaviour {
 	private Color colorp1,colorp2;
 	private Vector3 B1,B2;
 	private int pun1,pun2;
-	private Text puntp1, puntp2;
 	private player loco,loco2;
 	private CircleCollider2D p1box;
+	private SpriteRenderer colorWD;
 
     public bombolla bubledins1, bubledins2;
 	public GameObject es, ed, bubbleW, bubbleL;
-	public SpriteRenderer color;
     public cargar Anarsesala;
    
 	void Start () {
@@ -24,20 +22,17 @@ public class bola : MonoBehaviour {
 		pun1 = pun2 = 0;
 		p1 = GameObject.FindGameObjectWithTag("player1");
 		p2 = GameObject.FindGameObjectWithTag("player2");
-		g = GetComponent <CircleCollider2D> ();
-		p1box = p1.GetComponent<CircleCollider2D>();
+		g = GetComponent <CircleCollider2D> ();//CC de la bola
 		r = GetComponent <Rigidbody2D>();
-		edc = ed.GetComponent <BoxCollider2D> ();     
+		p1box = p1.GetComponent<CircleCollider2D>(); //CC del player
+		edc = ed.GetComponent <BoxCollider2D> ();//Wall dreta  
 		esc = es.GetComponent <BoxCollider2D> ();
+		colorWD = ed.GetComponent <SpriteRenderer> ();
 		fin = turn = false; //turn false = tira player1
         colorp1 = p1.GetComponent<SpriteRenderer>().color;
 		colorp2 = p2.GetComponent<SpriteRenderer>().color;
 		bubbleW.GetComponent<SpriteRenderer>().color = colorp1;
 		bubbleL.GetComponent<SpriteRenderer>().color = colorp2;
-		puntp1 = GameObject.Find("pplayer1").GetComponent<Text>();
-		puntp2 = GameObject.Find("pplayer2").GetComponent<Text>();
-		puntp1.text = "P1: " + pun1;
-		puntp2.text = "P2: " + pun2;
 		loco = p1.GetComponent<player>();
 		loco2 = p2.GetComponent<player>();
        	pelotavasca = GameObject.FindGameObjectWithTag("sala1m").GetComponent<BoxCollider2D>();
@@ -45,9 +40,11 @@ public class bola : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		if (!afegir) {
+		if (!afegir) 
+		{
 			if (p1box.IsTouching(pelotavasca))
 			{
+				loco.Punts (pun1,pun2,true); //Activa el sistema de punts
 				//Activa arma  
 				loco.activeWeap ("pal");
 				loco2.activeWeap ("pal");
@@ -55,31 +52,21 @@ public class bola : MonoBehaviour {
 			}    
         }
 
-		if (!fin) {
-			if (!turn) {// turn player 1
-				color.color = colorp1;
-			} else { // Turn player 2
-                color.color = colorp2;
-			}
+		if (!fin) 
+		{
+			if (!turn) {colorWD.color = colorp1;} // turn player 1
+			else {colorWD.color = colorp2;} // Turn player 2
 		
-			if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) {
+			if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) 
+			{
 				if (pun1 < 1 && pun2 < 1) {
 					r.velocity = new Vector2 (-7 * Mathf.Sign (r.velocity.x), r.velocity.y);
 
 					if (g.IsTouching (esc)) { // mur esquerra
-						if (turn) { //Turn p2
-							pun1++;
-							puntp1.text = "P1: " + pun1;
-							if(pun1 >= 1){
-								final ();
-							}
-						} else { // Turn p1
-							pun2++;
-							puntp2.text = "P2: " + pun2;
-							if(pun2 >= 1){
-								final ();
-							}
-						}
+						if (turn) { pun1++;} //Turn p2
+						else {pun2++;} // Turn p1
+						loco.Punts (pun1, pun2,true);
+						if (pun1 >= 1 || pun2 >= 1) {final ();}
 					}
 					if (g.IsTouching (edc)) { // mur dret
 						if (!turn) {
@@ -94,26 +81,25 @@ public class bola : MonoBehaviour {
 			if (g.IsTouchingLayers (LayerMask.GetMask ("murY"))) {
 				r.velocity = new Vector2 ((r.velocity.x), -7 * Mathf.Sign (r.velocity.y));
 			} //FIN MUR Y
-		}
-		if (bubledins1.dins1() && bubledins2.dins2()) {
-			g.isTrigger = true;
-			gameObject.SetActive (false);
-			if (!nomas) { // canvi de sala al script cargar
+		} //FIN !FIN      
+			if ((bubledins1.dins1() && bubledins2.dins2()) && !nomas) {
+				// canvi de sala al script cargar
+				gameObject.SetActive (false); //Eliminem la bola
 				Anarsesala.canviSala ();
+				loco.desactivarWeap ("pal"); loco2.desactivarWeap ("pal");
+				loco.Punts (0, 0, false); //Reset puntuacions
+				p1.transform.localRotation = new Quaternion(0,0,0,0); //Posem la rotacio del player a 0
+				p2.transform.localRotation = new Quaternion(0,0,0,0);
 				nomas = true;
 			}
+	} //FIN fixedUpdate 
 
-		}    
-       
-	} //FIN !FIN
 	void final(){
 		fin = true;
-		color.color = new Color (1f, 1f, 1f, 1f);
-		B1 = new Vector3 (-7,-3,18);
-		B2 = new Vector3 (7,-3,18);
+		colorWD.color = new Color (1f, 1f, 1f, 1f);
+		B1 = new Vector3 (-7,-3,18); B2 = new Vector3 (7,-3,18);
 		Instantiate (bubbleW,B2,Quaternion.identity);//Fa apareixer les bombolles
 		Instantiate (bubbleL,B1,Quaternion.identity);
-
-		// Fer un destroy de la bola, amb una animació? (explosió)
+		Anarsesala.AsignSalaDelete(pelotavasca);
 	}
 }
