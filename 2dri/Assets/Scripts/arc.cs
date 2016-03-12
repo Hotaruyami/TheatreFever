@@ -47,7 +47,7 @@ public class arc : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.LeftShift)) //Player 2 dispara
             {
-                bala = Resources.Load("bala", typeof(GameObject)) as GameObject;
+                bala = Resources.Load("balap2", typeof(GameObject)) as GameObject;
                 posBull = new Vector3(transform.parent.position.x - 0.09f * x1, transform.parent.position.y - 0.09f * y1, transform.position.z);
                 Instantiate(bala, posBull, Quaternion.Euler(0, 0, angle));
 
@@ -79,11 +79,11 @@ public class arc : MonoBehaviour {
 
 
 
-            if (Input.GetKeyDown(KeyCode.RightShift)) //Player 2 dispara
+            if (Input.GetKeyDown(KeyCode.RightShift)) //Player 1 dispara
             {
-                bala = Resources.Load("bala", typeof(GameObject)) as GameObject;
-                posBull = new Vector3(transform.parent.position.x - 0.09f * x1, transform.parent.position.y - 0.09f * y1, transform.position.z);
-                Instantiate(bala, posBull, Quaternion.Euler(0, 0, angle));
+                bala = Resources.Load("balap1", typeof(GameObject)) as GameObject;
+                posBull = new Vector3(transform.parent.position.x - 0.25f * x1, transform.parent.position.y - 0.25f * y1, transform.position.z);
+				Instantiate(bala, posBull, Quaternion.Euler(0, 0, angle));
 
 
             }

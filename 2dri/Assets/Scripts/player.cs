@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class player : MonoBehaviour {
-    static List<string> upgrades;
     static Dictionary<string,string> armes;
+	public float vida,armadura;
 
 	private GameObject arma,aa;
 	private  Vector2 mov;
@@ -19,20 +19,24 @@ public class player : MonoBehaviour {
         armes ["espasa"] = "espasa";
 		armes ["arc"] = "arc";
 		armes ["pal"] = "pal";
+		vida = 100f;
+		armadura = 1;
+
 	}
 
 	void FixedUpdate () {
 		
-		if(gameObject.CompareTag("player1"))
-		{
+		if (gameObject.CompareTag ("player1")) {
 			p1h = Input.GetAxis ("Horizontal"); 
 			p1v = Input.GetAxis ("Vertical");
+
 		}
 
 		if(gameObject.CompareTag("player2"))
 		{
 			p1h = Input.GetAxis ("player2"); 
 			p1v = Input.GetAxis ("player2v");
+
 		}
 
 		mov[0] = p1h; mov[1] = p1v;
@@ -40,6 +44,8 @@ public class player : MonoBehaviour {
 		if(Mathf.Sqrt(p1h*p1h+p1v*p1v)>0){
 			transform.position = new Vector3 (transform.position.x + p1h/Mathf.Sqrt(p1h*p1h+p1v*p1v)*0.2f, transform.position.y + p1v/Mathf.Sqrt(p1h*p1h+p1v*p1v) * 0.2F,17);	
 		}
+
+
 	}
     
 	public string tornaupgrades(string arma){ //REtorna el tipus d'"arma"

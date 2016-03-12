@@ -6,7 +6,7 @@ public class bombolla : MonoBehaviour {
 	private GameObject p1, p2, b1, b2,bom;
 
 	static bool uno,dos;
-  
+ 
 	public cargar Cn;
 
 	void Start () {
@@ -25,10 +25,12 @@ public class bombolla : MonoBehaviour {
 				uno = true;   
 			} 
 		} else if (uno && dos) {
-			if((p1.transform.position.x <= b1.transform.position.x - 3 || p1.transform.position.x >= b1.transform.position.x + 3 || p1.transform.position.y <= b1.transform.position.y - 3 || p1.transform.position.y >= b1.transform.position.y + 3)&&
-				(p2.transform.position.x <= b2.transform.position.x - 3 || p2.transform.position.x >= b2.transform.position.x + 3 || p2.transform.position.y <= b2.transform.position.y - 3 || p2.transform.position.y >= b2.transform.position.y + 3)){
+			
+			if ((p1.transform.position.x <= b1.transform.position.x - 3 || p1.transform.position.x >= b1.transform.position.x + 3 || p1.transform.position.y <= b1.transform.position.y - 3 || p1.transform.position.y >= b1.transform.position.y + 3) &&
+			   (p2.transform.position.x <= b2.transform.position.x - 3 || p2.transform.position.x >= b2.transform.position.x + 3 || p2.transform.position.y <= b2.transform.position.y - 3 || p2.transform.position.y >= b2.transform.position.y + 3)) {
 				Destroy (gameObject);//Eliminem bombolles
-			}
+			} 
+
 		}
         if (!dos){
             if (p2.transform.position.x >= b2.transform.position.x - 1 && p2.transform.position.x <= b2.transform.position.x + 1 && p2.transform.position.y >= b2.transform.position.y - 1 && p2.transform.position.y <= b2.transform.position.y + 1)

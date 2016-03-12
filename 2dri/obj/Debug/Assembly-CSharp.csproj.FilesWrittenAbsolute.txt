@@ -1,3 +1,7 @@
+/Users/Shared/Unity/2dri/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/Shared/Unity/2dri/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/Shared/Unity/2dri/obj/Debug/Assembly-CSharp.dll
+/Users/Shared/Unity/2dri/obj/Debug/Assembly-CSharp.dll.mdb
 /Users/Shared/Unity/2dri/Temp/bin/Debug/UnityEngine.dll
 /Users/Shared/Unity/2dri/Temp/bin/Debug/UnityEditor.dll
 /Users/Shared/Unity/2dri/Temp/bin/Debug/UnityEngine.Networking.dll
@@ -11,7 +15,3 @@
 /Users/Shared/Unity/2dri/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/Shared/Unity/2dri/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/Shared/Unity/2dri/Temp/bin/Debug/Mono.Cecil.Mdb.dll
-/Users/Shared/Unity/2dri/Temp/bin/Debug/Assembly-CSharp.dll.mdb
-/Users/Shared/Unity/2dri/Temp/bin/Debug/Assembly-CSharp.dll
-/Users/Shared/Unity/2dri/obj/Debug/Assembly-CSharp.dll
-/Users/Shared/Unity/2dri/obj/Debug/Assembly-CSharp.dll.mdb

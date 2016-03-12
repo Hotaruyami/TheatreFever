@@ -11,6 +11,8 @@ public class cargar : MonoBehaviour {
 	private float tam,distanciapercanviar;
 	private Vector3 posSala;
     private List<GameObject> sales;
+	public upgrade up;
+
 
 	static Collider2D sala;
  	static player pt1,pt2;
@@ -31,9 +33,14 @@ public class cargar : MonoBehaviour {
         sales = salas.ToList<GameObject>();
 		Jueguen ();	//Executa el creador de sales
 		//Pasar a la funció el número de minijocs a jugar?
+
 	}
 
 	void FixedUpdate () {
+			GameObject.Find("vidap2").GetComponent<Text>().text = "HP: " + pt1.vida;
+			GameObject.Find("vidap1").GetComponent<Text>().text = "HP: " + pt2.vida;//de moment, tal funcio
+
+
 		if (tre) { //Distancia a moure's
 			distanciapercanviar = Next () + 2;
 			tre = false;
@@ -48,6 +55,7 @@ public class cargar : MonoBehaviour {
 			bm1 = b1.GetComponent<bombolla> (); //Script bombolla 1
 			bm2 = b2.GetComponent<bombolla> ();
 			due = false;
+			up.dest();
 			DestroySala (); //Destruim sala anterior
 			pt1.Obrir (true); //Fa apareixer el player 1
 			pt2.Obrir (true);
@@ -57,7 +65,7 @@ public class cargar : MonoBehaviour {
 	}
 
 	void Jueguen(){
-		for(int x = 0; x < 2; ++x){ // fa un for i carrega el número de sales (de moment son 2)
+		for(int x = 0; x < 3; ++x){ // fa un for i carrega el número de sales (de moment son 2)
 			ran = Random.Range (0, sales.Count); //sala aleatoria
             tamanys.Add(sales[ran].transform.localScale.y); //Afegeix a tamanys el tamany de la sala actual
 			posSala = new Vector3 (transform.position.x,tam, 18); //Posisció on es col·locarà
@@ -78,6 +86,7 @@ public class cargar : MonoBehaviour {
 		due = tre = true;
 		pt1.Obrir (false); //esactiva els players while bubble
 		pt2.Obrir (false);
+
 	}
 	public void AsignSalaDelete(Collider2D delete){
 		sala = delete; //Fem arribar aquí, el collider de la sala on estem, per fer delete
@@ -86,4 +95,5 @@ public class cargar : MonoBehaviour {
 	void DestroySala(){
 		Destroy (sala.gameObject); //Destruim sala anterior
 	}
+
 }

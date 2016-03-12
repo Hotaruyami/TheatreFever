@@ -16,6 +16,7 @@ public class bola : MonoBehaviour {
     public bombolla bubledins1, bubledins2;
 	public GameObject es, ed, bubbleW, bubbleL;
     public cargar Anarsesala;
+	public upgrade upgr;
    
 	void Start () {
         afegir = nomas = false;
@@ -39,59 +40,70 @@ public class bola : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		if (p1box.IsTouching (pelotavasca)) {
 
-		if (!afegir) 
-		{
-			if (p1box.IsTouching(pelotavasca))
-			{
-				loco.Punts (pun1,pun2,true); //Activa el sistema de punts
-				//Activa arma  
-				loco.activeWeap ("pal");
-				loco2.activeWeap ("pal");
-				afegir = true;
-			}    
-        }
+			if (!afegir) {
+				if (p1box.IsTouching (pelotavasca)) {
+					loco.Punts (pun1, pun2, true); //Activa el sistema de punts
+					//Activa arma  
+					loco.activeWeap ("pal");
+					loco2.activeWeap ("pal");
+					afegir = true;
+				}    
+			}
 
-		if (!fin) 
-		{
-			if (!turn) {colorWD.color = colorp1;} // turn player 1
-			else {colorWD.color = colorp2;} // Turn player 2
+			if (!fin) {
+				if (!turn) {
+					colorWD.color = colorp1;
+				} // turn player 1
+			else {
+					colorWD.color = colorp2;
+				} // Turn player 2
 		
-			if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) 
-			{
-				if (pun1 < 1 && pun2 < 1) {
-					r.velocity = new Vector2 (-7 * Mathf.Sign (r.velocity.x), r.velocity.y);
+				if (g.IsTouchingLayers (LayerMask.GetMask ("murH"))) {
+					if (pun1 < 1 && pun2 < 1) {
+						r.velocity = new Vector2 (-7 * Mathf.Sign (r.velocity.x), r.velocity.y);
 
-					if (g.IsTouching (esc)) { // mur esquerra
-						if (turn) { pun1++;} //Turn p2
-						else {pun2++;} // Turn p1
-						loco.Punts (pun1, pun2,true);
-						if (pun1 >= 1 || pun2 >= 1) {final ();}
-					}
-					if (g.IsTouching (edc)) { // mur dret
-						if (!turn) {
-							turn = true;
-						} else if (turn) {
-							turn = false;
+						if (g.IsTouching (esc)) { // mur esquerra
+							if (turn) {
+								pun1++;
+							} //Turn p2
+						else {
+								pun2++;
+							} // Turn p1
+							loco.Punts (pun1, pun2, true);
+							if (pun1 >= 1 || pun2 >= 1) {
+								final ();
+							}
+						}
+						if (g.IsTouching (edc)) { // mur dret
+							if (!turn) {
+								turn = true;
+							} else if (turn) {
+								turn = false;
+							}
 						}
 					}
-				}
-			} //FIN MUR H
+				} //FIN MUR H
 
-			if (g.IsTouchingLayers (LayerMask.GetMask ("murY"))) {
-				r.velocity = new Vector2 ((r.velocity.x), -7 * Mathf.Sign (r.velocity.y));
-			} //FIN MUR Y
-		} //FIN !FIN      
-			if ((bubledins1.dins1() && bubledins2.dins2()) && !nomas) {
+				if (g.IsTouchingLayers (LayerMask.GetMask ("murY"))) {
+					r.velocity = new Vector2 ((r.velocity.x), -7 * Mathf.Sign (r.velocity.y));
+				} //FIN MUR Y
+			} //FIN !FIN      
+			if ((bubledins1.dins1 () && bubledins2.dins2 ()) && !nomas) {
 				// canvi de sala al script cargar
 				gameObject.SetActive (false); //Eliminem la bola
 				Anarsesala.canviSala ();
-				loco.desactivarWeap ("pal"); loco2.desactivarWeap ("pal");
+				loco.desactivarWeap ("pal");
+				loco2.desactivarWeap ("pal");
 				loco.Punts (0, 0, false); //Reset puntuacions
-				p1.transform.localRotation = new Quaternion(0,0,0,0); //Posem la rotacio del player a 0
-				p2.transform.localRotation = new Quaternion(0,0,0,0);
+				p1.transform.localRotation = new Quaternion (0, 0, 0, 0); //Posem la rotacio del player a 0
+				p2.transform.localRotation = new Quaternion (0, 0, 0, 0);
+				upgr.comensa (true);//fica upgrades als players
 				nomas = true;
+
 			}
+		}
 	} //FIN fixedUpdate 
 
 	void final(){
