@@ -42,7 +42,7 @@ public class cargar : MonoBehaviour {
 
 	void FixedUpdate () {
         if (tempsintermig) {
-         
+         //locura
             if (buble1.GetComponent<bombolla>().dins1() && buble2.GetComponent<bombolla>().dins2())
             {
                 tempsintermig = false;
@@ -74,7 +74,7 @@ public class cargar : MonoBehaviour {
 	}
 
 	void Jueguen(){
-		for(int x = 0; x < 3; ++x){ // fa un for i carrega el número de sales (de moment son 2)
+		for(int x = 0; x < 4; ++x){ // fa un for i carrega el número de sales (de moment son 2)
 			ran = Random.Range (0, sales.Count); //sala aleatoria
             tamanys.Add(sales[ran].transform.localScale.y);
             //Afegeix a tamanys el tamany de la sala actual
@@ -94,6 +94,7 @@ public class cargar : MonoBehaviour {
 
 	public void canviSala(){
 		due = tre = true;
+       
 		pt1.Obrir (false); //esactiva els players while bubble
 		pt2.Obrir (false);
 
@@ -125,6 +126,8 @@ public class cargar : MonoBehaviour {
         bm2 = b2.GetComponent<bombolla>();
         pt1.Obrir(true); //Fa apareixer el player 1
         pt2.Obrir(true);
+        pt1.vidarestaurar();
+        pt2.vidarestaurar();
         bm1.Walls(false, 1); //Obre les portes de la bombolla
         bm2.Walls(false, 2);
      

@@ -52,13 +52,11 @@ public class pumpum : MonoBehaviour
                         {// final();
                             if (loco.vida > loco2.vida)
                             {
-                                loco.vida = 100;
-                                loco2.vida = 100;
+                                
                                 Anarsesala.acabar(true);
                             }
                             else {
-                                loco.vida = 100;
-                                loco2.vida = 100;
+                              
                                 Anarsesala.acabar(false);
                             }
                             finuncp = false;

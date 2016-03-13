@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class player : MonoBehaviour {
     static Dictionary<string,string> armes;
 	public float vida,armadura;
-
+    static float vidareal;
 	private GameObject arma,aa;
 	private  Vector2 mov;
 	private float p1h,p1v;
@@ -20,8 +20,9 @@ public class player : MonoBehaviour {
 		armes ["arc"] = "arc";
 		armes ["pal"] = "pal";
         armes["arco"] = "arco";
-		vida = 100f;
+		vidareal = 100f;
 		armadura = 1;
+        vida = 100f;
 
 	}
 
@@ -111,4 +112,17 @@ public class player : MonoBehaviour {
 		//Que s'activi al acabar una sala dient quin player ha guanyat simplement
 		
 	}
+    //puertas  de la vida
+    public void vidarestaurar() {
+       vida= vidarestaurarstatic();
+    
+    }
+    static float vidarestaurarstatic() {
+        return vidareal;
+    }
+
+    static void vidastaticcanviar(float upgradevida) {
+
+        vidareal += upgradevida;
+    }
 }
