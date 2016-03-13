@@ -18,7 +18,7 @@ public class dispar1 : MonoBehaviour {
 		pc1 = p1.GetComponent<CircleCollider2D>();
 		pc2 = p2.GetComponent<CircleCollider2D>();
 		tocamurs = nomasboladano = false;
-
+      
 		if (gameObject.CompareTag ("balap1")) {
 			bolap1 = true;
 		} else {

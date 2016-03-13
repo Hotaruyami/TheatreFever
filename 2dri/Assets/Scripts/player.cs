@@ -19,6 +19,7 @@ public class player : MonoBehaviour {
         armes ["espasa"] = "espasa";
 		armes ["arc"] = "arc";
 		armes ["pal"] = "pal";
+        armes["arco"] = "arco";
 		vida = 100f;
 		armadura = 1;
 
@@ -60,10 +61,19 @@ public class player : MonoBehaviour {
 			aa.GetComponent<HingeJoint2D> ().connectedBody = gameObject.GetComponent<Rigidbody2D> ();
 			aa.transform.localScale = new Vector3 (0.2f, 0.025f, 0);	
 		} 
+
+
+
 		else if (nom == "arc") {
 			aa.transform.localScale = new Vector3 (0.2f,0.1f,0);
 			aa.transform.localPosition = new Vector3 (0,0.07f,0);
 		}
+        else if (nom == "arco")
+        {
+            aa.transform.localScale = new Vector3(0.2f, 0.1f, 0);
+            aa.transform.localPosition = new Vector3(0.09f, 0.0f, 0);
+            aa.transform.rotation = Quaternion.Euler(0, 0, -90f);
+        }
 		else if (nom == "espasa") {
 		}
 	}
@@ -76,6 +86,7 @@ public class player : MonoBehaviour {
 		//Activa i desactiva players
 		if(obre)
 		{
+          
 			gameObject.SetActive (true);
 		}
 		else{
