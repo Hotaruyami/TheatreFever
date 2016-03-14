@@ -11,11 +11,13 @@ public class arcofiel : MonoBehaviour
     private player loco, loco2;
     private bool afegir, fin, nomas;
     private Vector3 B1, B2;
+	private bool finuncp;
 
     public GameObject bubbleW, bubbleL;
     public bombolla bubledins1, bubledins2;
-    public upgrade upgr;
-    private bool finuncp;
+    public upgrade upgr;    
+
+	//Script sala Arcofiel
 
     void Start()
     {
@@ -26,15 +28,12 @@ public class arcofiel : MonoBehaviour
         loco2 = p2.GetComponent<player>();
         p1box = p1.GetComponent<CircleCollider2D>(); //CC del player
         pumpu = GetComponent<BoxCollider2D>(); //Collider de la sala
-
         finuncp = true;
        
     }
 
     void FixedUpdate()
     {
-
-
         if (p1box.IsTouching(pumpu))
         {
             if (!afegir)
@@ -53,11 +52,11 @@ public class arcofiel : MonoBehaviour
                     {// final();
                         if (loco.vida > loco2.vida)
                         {
-                            Anarsesala.acabar(true);
+                            Anarsesala.acabar(true,"fletxa");
                         }
                         else
                         {
-                            Anarsesala.acabar(false);
+                            Anarsesala.acabar(false,"fletxa");
                         }
                         finuncp = false;
 

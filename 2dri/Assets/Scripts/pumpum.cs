@@ -3,7 +3,7 @@ using System.Collections;
 
 public class pumpum : MonoBehaviour
 {
-    public cargar Anarsesala;
+    
 
     private GameObject p1, p2;
     private Collider2D pumpu;
@@ -16,6 +16,7 @@ public class pumpum : MonoBehaviour
     public bombolla bubledins1, bubledins2;
     public upgrade upgr;
     private bool finuncp;
+	public cargar Anarsesala;
 
     void Start()
     {
@@ -53,11 +54,11 @@ public class pumpum : MonoBehaviour
                             if (loco.vida > loco2.vida)
                             {
                                 
-                                Anarsesala.acabar(true);
+                                Anarsesala.acabar(true,"bala");
                             }
                             else {
                               
-                                Anarsesala.acabar(false);
+                                Anarsesala.acabar(false,"bala");
                             }
                             finuncp = false;
 

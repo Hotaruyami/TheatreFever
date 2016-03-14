@@ -5,20 +5,19 @@ public class arcofiel2 : MonoBehaviour
 {
     public cargar Anarsesala;
 
-    private GameObject p1, p2;
-    private Collider2D pumpu;
+	private GameObject p1, p2, mig1;
+	private Collider2D arcofiel2col;
     private CircleCollider2D p1box;
     private player loco, loco2;
-    private bool afegir, fin, nomas;
+	private bool afegir, fin, nomas, finuncp, unactiven;
     private Vector3 B1, B2;
 
-    public GameObject bubbleW, bubbleL;
+	public GameObject bubbleW, bubbleL, mig, pr1, pr2;
     public bombolla bubledins1, bubledins2;
     public upgrade upgr;
-    private bool finuncp;
-    public GameObject mig, pr1, pr2;
-    private bool unactiven;
-    private GameObject mig1;
+
+	//Script sala arcofiel2 on es fa servir Arco(arc horitzontal)
+
     void Start()
     {
         afegir = fin = nomas = false;
@@ -27,11 +26,8 @@ public class arcofiel2 : MonoBehaviour
         loco = p1.GetComponent<player>(); //Script p1
         loco2 = p2.GetComponent<player>();
         p1box = p1.GetComponent<CircleCollider2D>(); //CC del player
-        pumpu = GetComponent<BoxCollider2D>();
-        unactiven = true;
-//Collider de la sala
-
-        finuncp = true;
+        arcofiel2col = GetComponent<BoxCollider2D>();
+		unactiven = finuncp = true;
        
     }
 
@@ -39,7 +35,7 @@ public class arcofiel2 : MonoBehaviour
     {
 
 
-        if (p1box.IsTouching(pumpu))
+		if (p1box.IsTouching(arcofiel2col))
         {
             if (!afegir)
             {
@@ -66,11 +62,11 @@ public class arcofiel2 : MonoBehaviour
                     {// final();
                         if (loco.vida > loco2.vida)
                         {
-                            Anarsesala.acabar(true);
+                            Anarsesala.acabar(true,"fletxa");
                         }
                         else
                         {
-                            Anarsesala.acabar(false);
+                            Anarsesala.acabar(false,"fletxa");
                         }
                         finuncp = false;
 
@@ -80,10 +76,4 @@ public class arcofiel2 : MonoBehaviour
 
         }
     }
-
-
-
-
-
-
 }

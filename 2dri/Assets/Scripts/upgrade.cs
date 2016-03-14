@@ -21,7 +21,7 @@ public class upgrade : MonoBehaviour {
 		pos = new Vector3 (0,0,0);
 		upgra = false;
 		p1escull = p2escull = true;
-	}	//p1 a la dretac cuiao
+	}	//p1 a la dreta cuiao
 
 	void FixedUpdate(){
 		if (upgra) {
@@ -65,7 +65,6 @@ public class upgrade : MonoBehaviour {
 	}
 
 	static void proses(bool p1win){ //Assigna dues millores als players
-		//Random rand = new Random ();
 		float mitja1, mitja2;
 		float puntalea;
 		if (p1win) {

@@ -15,6 +15,9 @@ public class bombolla : MonoBehaviour {
 		p2 = GameObject.FindGameObjectWithTag("player2");
 		b1 = GameObject.FindGameObjectWithTag("b1");//Bubble1
 		b2 = GameObject.FindGameObjectWithTag("b2");
+		b1.GetComponent<SpriteRenderer>().color = p1.GetComponent<SpriteRenderer>().color;
+		b2.GetComponent<SpriteRenderer>().color = p2.GetComponent<SpriteRenderer>().color;
+
 	}
 		
 	void FixedUpdate () {   

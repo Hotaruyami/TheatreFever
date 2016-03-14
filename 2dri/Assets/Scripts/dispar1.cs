@@ -2,12 +2,14 @@
 using System.Collections;
 
 public class dispar1 : MonoBehaviour {
-    private Vector3 rot; 
-	float x, y;  
+	float x, y;
+
+	private Vector3 rot;   
 	private bool tocamurs,nomasboladano,bolap1; 
 	private CircleCollider2D pc1, pc2; 
 	private Collider2D jo;
 	private GameObject p1,p2;
+
 	// Use this for initialization
 	void Start () {
         rot = transform.rotation.eulerAngles;    
@@ -19,7 +21,7 @@ public class dispar1 : MonoBehaviour {
 		pc2 = p2.GetComponent<CircleCollider2D>();
 		tocamurs = nomasboladano = false;
       
-		if (gameObject.CompareTag ("balap1")) {
+		if (gameObject.name == "balap1(Clone)") {
 			bolap1 = true;
 		} else {
 			bolap1 = false;
@@ -28,6 +30,7 @@ public class dispar1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		
 		if (jo.IsTouchingLayers (LayerMask.GetMask ("murY"))||jo.IsTouchingLayers (LayerMask.GetMask ("murH"))) {
 			tocamurs = true;
 		}

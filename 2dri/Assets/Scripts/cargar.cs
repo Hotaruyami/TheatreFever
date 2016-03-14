@@ -7,34 +7,36 @@ public class cargar : MonoBehaviour {
 
 	public GameObject[] salas;
     
-    private int ran;
+    private int ran,pfin1,pfin2;
 	private float tam,distanciapercanviar;
 	private Vector3 posSala;
     private List<GameObject> sales;
 	public upgrade up;
     public GameObject buble1, buble2;
     private bool p1w;
+	private GameObject[] gamepum;
 
+	static string taggy;
 	static Collider2D sala;
  	static player pt1,pt2;
 	static bombolla bm1,bm2;
     static GameObject p1,p2,b1,b2;
     static int index;
-	static bool due,tre;
+	static bool due,tempsintermig;
 	static List<float> tamanys;
-   static bool  tempsintermig;
+
 	void Start () {
-     tempsintermig= false;
-     p1w = false;
 		p1 = GameObject.FindGameObjectWithTag ("player1");
 		p2 = GameObject.FindGameObjectWithTag ("player2");
 		pt1 = p1.GetComponent<player>(); //Script player1
 		pt2 = p2.GetComponent<player>();
-		due = tre = false;
-		tam = index = 0;
+		due = tempsintermig = p1w = false;
+		tam = index = pfin1 = pfin2 = 0;
+		//pfin son ls puntuacions finals (podrien anar a player?, podrien)
         tamanys = new List<float>();
         sales =  salas.ToList<GameObject>();
-
+		GameObject.Find("pplayer1fi").GetComponent<Text>().text = "P1: " +pfin1;
+		GameObject.Find("pplayer2fi").GetComponent<Text>().text = "P2: " +pfin2;
 		Jueguen ();	//Executa el creador de sales
 		//Pasar a la funció el número de minijocs a jugar?
 
@@ -42,33 +44,30 @@ public class cargar : MonoBehaviour {
 
 	void FixedUpdate () {
         if (tempsintermig) {
-         //locura
             if (buble1.GetComponent<bombolla>().dins1() && buble2.GetComponent<bombolla>().dins2())
             {
                 tempsintermig = false;
                 canviSala();
-                up.comensa(p1w);
+                up.comensa(p1w); //Cpmença el tema dels upgrades
 
             }
         }
-			GameObject.Find("vidap2").GetComponent<Text>().text = "HP: " + pt1.vida;
-			GameObject.Find("vidap1").GetComponent<Text>().text = "HP: " + pt2.vida;//de moment, tal funcio
 
-		if (tre) { //Distancia a moure's
-			distanciapercanviar = Next () + 2;
-			tre = false;
-		}
-		else if(distanciapercanviar > 0 && due){//mou de sala
+		GameObject.Find("vidap1").GetComponent<Text>().text = "HP: " + pt1.vida.ToString("F2");;
+		GameObject.Find("vidap2").GetComponent<Text>().text = "HP: " + pt2.vida.ToString("F2");;//de moment, tal funcio
+
+		if(distanciapercanviar > 0 && due){//mou de sala
           
 			transform.position = new Vector3 (transform.position.x, transform.position.y - 0.1f, transform.position.z);
 			distanciapercanviar -= 0.1F;
        
 		}
 		else if (distanciapercanviar <= 0 && due){
-            up.dest();     
+            up.dest(); //Destroy upgrades boxs    
             pillarbombos();
             due = false;
             Destroy(gameObject.transform.GetChild(0).gameObject);
+			deleteBullets (taggy); //Eliminem components de la sala anterior per tag
            
 		}
 	}
@@ -93,30 +92,34 @@ public class cargar : MonoBehaviour {
     public List<float> tamanySales() { return tamanys; } 
 
 	public void canviSala(){
-		due = tre = true;
-       
-		pt1.Obrir (false); //esactiva els players while bubble
+		due = true;  
+		distanciapercanviar = Next () + 2;
+		pt1.Obrir (false); //desactiva els players while bubble
 		pt2.Obrir (false);
 
 	}
-    public void acabar(bool p1win) {
-        foreach (Transform child in p1.transform) {
+	public void acabar(bool p1win, string tag) { //No sé si hauriem de pasar aqui el tag pero bueno
+        foreach (Transform child in p1.transform) { //Borra les armes que tingui
             Destroy(child.gameObject);
         }
         foreach (Transform child in p2.transform)
         {
             Destroy(child.gameObject);
         }
+		taggy = tag;
 
         Vector3 B1 = new Vector3(-7, -3, 18); Vector3 B2 = new Vector3(7, -3, 18);
         Instantiate(buble1, B2, Quaternion.identity);//Fa apareixer les bombolles
         Instantiate(buble2, B1, Quaternion.identity);
-          p1.transform.localRotation = new Quaternion(0, 0, 0, 0); //posem la rotacio del player a 0
-           p2.transform.localRotation = new Quaternion(0, 0, 0, 0);
-           tempsintermig = true;
-           p1w = p1win;
-       
-        //    upgr.comensa(true);//fica upgrades als players
+        p1.transform.localRotation = new Quaternion(0, 0, 0, 0); //posem la rotacio del player a 0
+        p2.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        tempsintermig = true;
+        p1w = p1win;
+		if (p1win) {++pfin1;} 
+		else {++pfin2;}
+
+		GameObject.Find("pplayer1fi").GetComponent<Text>().text = "P1: " +pfin1;
+		GameObject.Find("pplayer2fi").GetComponent<Text>().text = "P2: " +pfin2;
     }
   static void pillarbombos() {
 
@@ -132,6 +135,11 @@ public class cargar : MonoBehaviour {
         bm2.Walls(false, 2);
      
     }
-   
+	public void deleteBullets(string tag){
+		gamepum =  GameObject.FindGameObjectsWithTag (tag);
+
+		for(var i = 0 ; i < gamepum.Length ; i ++)
+			Destroy(gamepum[i]);
+	}
   
 }

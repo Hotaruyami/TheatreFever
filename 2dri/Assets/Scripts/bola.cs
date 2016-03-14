@@ -13,10 +13,10 @@ public class bola : MonoBehaviour
     private CircleCollider2D p1box;
     private SpriteRenderer colorWD;
 
-
     public GameObject es, ed;
     public cargar Anarsesala;
     public upgrade upgr;
+
     void Start()
     {
         afegir = nomas = false;
@@ -85,16 +85,16 @@ public class bola : MonoBehaviour
                             loco.Punts(pun1, pun2, true);
                             if (pun1 >= 1 || pun2 >= 1)
                             {
+								gameObject.GetComponent<Rigidbody2D> ().isKinematic = true;
                                 if (pun1 > pun2)
                                 {
-                                    Anarsesala.acabar(true);
+                                    Anarsesala.acabar(true,"bola");
                                 }
                                 else {
-                                    Anarsesala.acabar(false);
+                                    Anarsesala.acabar(false,"bola");
                                 }
-                               
-                                final();
 
+								loco.Punts (0, 0, false);
                             }
                         }
                         if (g.IsTouching(edc))
@@ -120,9 +120,4 @@ public class bola : MonoBehaviour
          
         }
     }  
-
-    void final()
-    {
-        Destroy(gameObject);
-    }
 }

@@ -19,7 +19,7 @@ public class fletxa : MonoBehaviour
         pc2 = p2.GetComponent<CircleCollider2D>();
         nomasboladano = false;
 
-        if (gameObject.CompareTag("balap1"))
+		if (gameObject.name == "fletxa(Clone)") //PROBLEM
         {
             bolap1 = true;
         }
@@ -38,14 +38,15 @@ public class fletxa : MonoBehaviour
         {
             if (jo.IsTouching(pc1) && !bolap1)
             {
-                nomasboladano = true;
+               nomasboladano = true;
                p1.GetComponent<player>().vida -= 0.4f * Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude)*p1.GetComponent<player>().armadura;
-             
+
             }
             if (jo.IsTouching(pc2) && bolap1)
             {
-                nomasboladano = true;
+               nomasboladano = true;
                p2.GetComponent<player>().vida -= 0.4f * Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude)*p2.GetComponent<player>().armadura;
+
             }
 
         }

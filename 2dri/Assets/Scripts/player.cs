@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 public class player : MonoBehaviour {
     static Dictionary<string,string> armes;
+	static float vidareal;
 	public float vida,armadura;
-    static float vidareal;
+
 	private GameObject arma,aa;
 	private  Vector2 mov;
 	private float p1h,p1v;
@@ -20,10 +21,8 @@ public class player : MonoBehaviour {
 		armes ["arc"] = "arc";
 		armes ["pal"] = "pal";
         armes["arco"] = "arco";
-		vidareal = 100f;
+		vidareal = vida = 100f;
 		armadura = 1;
-        vida = 100f;
-
 	}
 
 	void FixedUpdate () {
@@ -47,7 +46,7 @@ public class player : MonoBehaviour {
 			transform.position = new Vector3 (transform.position.x + p1h/Mathf.Sqrt(p1h*p1h+p1v*p1v)*0.2f, transform.position.y + p1v/Mathf.Sqrt(p1h*p1h+p1v*p1v) * 0.2F,17);	
 		}
 
-
+		if (vida < 0) {vida = 0;}
 	}
     
 	public string tornaupgrades(string arma){ //REtorna el tipus d'"arma"
@@ -62,9 +61,6 @@ public class player : MonoBehaviour {
 			aa.GetComponent<HingeJoint2D> ().connectedBody = gameObject.GetComponent<Rigidbody2D> ();
 			aa.transform.localScale = new Vector3 (0.2f, 0.025f, 0);	
 		} 
-
-
-
 		else if (nom == "arc") {
 			aa.transform.localScale = new Vector3 (0.2f,0.1f,0);
 			aa.transform.localPosition = new Vector3 (0,0.07f,0);
@@ -97,8 +93,8 @@ public class player : MonoBehaviour {
 
 	public void Punts(int pun1, int pun2, bool active){
 		if(active){
-			GameObject.Find("pplayer1").GetComponent<Text>().text = "P1: " + pun1;
-			GameObject.Find("pplayer2").GetComponent<Text>().text = "P2: " + pun2;	
+			GameObject.Find("pplayer1").GetComponent<Text>().text = "[P1]: " + pun1;
+			GameObject.Find("pplayer2").GetComponent<Text>().text = "[P2]: " + pun2;	
 		}
 		else{ //Reset puntuació
 			GameObject.Find("pplayer1").GetComponent<Text>().text = "";
@@ -107,14 +103,9 @@ public class player : MonoBehaviour {
 
 	}
 
-	public void PuntuacioGeneral(/* Passar el player que hagi guanyat */){ 
-		//PODRIEM FER UNA GENERAL PER SABER QUANTS MINIJOCS HA GUANYAT CADA
-		//Que s'activi al acabar una sala dient quin player ha guanyat simplement
-		
-	}
     //puertas  de la vida
     public void vidarestaurar() {
-       vida= vidarestaurarstatic();
+       vida = vidarestaurarstatic();
     
     }
     static float vidarestaurarstatic() {
